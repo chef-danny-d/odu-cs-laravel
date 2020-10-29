@@ -39,6 +39,18 @@ let User = new mongoose.Schema({
 		default: null,
 		minLength: 8,
 	},
+	active: {
+		type: Boolean,
+		default: false,
+	},
+	searchHistory: [
+		{
+			default: null,
+			trim: true,
+			type: Object,
+		},
+	],
+	createdDocuments: [{ type: mongoose.Types.ObjectId }],
 })
 
 export default mongoose.models.Users || mongoose.model('Users', User)
