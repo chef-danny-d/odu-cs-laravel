@@ -4,6 +4,7 @@ import axios from 'axios'
 import Layout from './components/Layout'
 import withoutAuth from './auth/withoutAuth'
 import { useAuth } from './providers/Auth'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 export default withoutAuth(function Register() {
 	const [firstName, setFirstName] = useState('')
@@ -40,6 +41,9 @@ export default withoutAuth(function Register() {
 				setError(err.message)
 			})
 	}
+	function captcha(value) {
+		console.log('Captcha value:', value)
+	}
 	const change = (e) => {
 		if (e.target.name === 'fname') {
 			setFirstName(e.target.value)
@@ -70,7 +74,7 @@ export default withoutAuth(function Register() {
 				</div>
 			)}
 			<form
-				className="w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+				className="w-1/2 mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
 				onSubmit={(e) => handleSubmit(e)}
 			>
 				<div className="flex flex-wrap -mx-3 mb-6">
@@ -175,13 +179,19 @@ export default withoutAuth(function Register() {
 							))}
 					</div>
 				</div>
+				<div className="flex flex-1 items-center justify-center mb-6">
+					<ReCAPTCHA
+						sitekey={`${process.env.REACT_APP_SITEKEY}`}
+						onChange={captcha}
+					/>
+				</div>
 				<div className="flex items-center justify-around w-full">
 					<button
 						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 						type="button"
 						onClick={(e) => handleSubmit(e)}
 					>
-						Sign In
+						Register
 					</button>
 				</div>
 			</form>

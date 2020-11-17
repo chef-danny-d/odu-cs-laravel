@@ -1,5 +1,6 @@
 import dbCon from './config/db'
 import Docs from './db/Docs'
+import sanitizeHtml from 'sanitize-html'
 
 dbCon()
 
@@ -7,7 +8,7 @@ export default async (req, res) => {
 	const { method } = req
 	if (method === 'GET') {
 		//destructuring search query
-		const { query } = req.query
+		const query = sanitizeHtml(req.query.query)
 		const { type } = req.query
 		const { author } = req.query
 
@@ -34,7 +35,7 @@ export default async (req, res) => {
 						title: { $regex: new RegExp(query, 'i') },
 					},
 					{
-						author: { $regex: new RegExp(author, 'i') },
+						contributor_author: { $regex: new RegExp(author, 'i') },
 					},
 				],
 			}
@@ -47,7 +48,7 @@ export default async (req, res) => {
 						title: { $regex: new RegExp(query, 'i') },
 					},
 					{
-						author: { $regex: new RegExp(author, 'i') },
+						contributor_author: { $regex: new RegExp(author, 'i') },
 					},
 					{
 						type,

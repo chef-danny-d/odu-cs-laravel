@@ -86,15 +86,15 @@ export default withAuth(function User() {
 							</div>
 							<div className="tile--header">
 								<h1 className="tile--header-text text-lg">
-									Search history
+									Saved articles
 								</h1>
 							</div>
 							<div className="tile--content">
-								{user.data.searchHistory.map(
+								{user.data.savedArticles.map(
 									(instance, key) => (
 										<div className="search--item rounded-sm flex flex-wrap flex-row justify-between px-4 py-1 text-white bg-indigo-300 my-2 hover:bg-indigo-400">
 											<Link
-												href={`/search?query=${instance}`}
+												href={`/document/${instance}`}
 											>
 												<a className="">
 													<div

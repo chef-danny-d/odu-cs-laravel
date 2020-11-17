@@ -51,6 +51,7 @@ let User = new mongoose.Schema({
 		},
 	],
 	createdDocuments: [{ type: mongoose.Types.ObjectId }],
+	savedArticles: [{ type: mongoose.Types.ObjectId }],
 })
 
 export default mongoose.models.Users || mongoose.model('Users', User)

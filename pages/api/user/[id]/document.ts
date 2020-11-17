@@ -13,7 +13,7 @@ export default async (req, res) => {
 		query: { id },
 	} = req
 	//account modification handling
-	if (method === 'PUT') {
+	if (method === 'POST') {
 		const user = await User.findById(id)
 		if (!user) {
 			res.status(401).json({
@@ -43,6 +43,40 @@ export default async (req, res) => {
 					document,
 				})
 			})
+		}
+	}
+	if (method === 'PUT') {
+		const user = await User.findById(id)
+		if (!user) {
+			res.status(401).json({
+				error: 'User not found',
+			})
+		} else {
+			//prevent duplicate addition
+			if (user.savedArticles.includes(req.body._id)) {
+				res.status(400).json({
+					error: 'Article is already saved',
+				})
+			}
+			user.updateOne(
+				{
+					$push: {
+						savedArticles: req.body._id,
+					},
+				},
+				async (err, result) => {
+					if (err) {
+						res.status(500).json({
+							error: err,
+						})
+					} else {
+						const updated = await User.findById(id)
+						res.status(200).json({
+							data: updated,
+						})
+					}
+				}
+			)
 		}
 	}
 	if (method === 'DELETE') {

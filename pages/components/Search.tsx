@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import QuickResults from './QuickResults'
 import { useRouter } from 'next/router'
 
 const SearchBar = (props) => {
@@ -9,15 +8,8 @@ const SearchBar = (props) => {
 	const [author, setAuthor] = useState('')
 	//results holds all of our returned data from db
 	const [results, setResults] = useState([])
-	//we use display to determine whether search results should be displayed
-	const [display, setDisplay] = useState(false)
-	//we use submit to determine whether search bar needs to be in the middle of screen or hidden under nav
-	const [submit, setSubmit] = useState(false)
 
 	const router = useRouter()
-
-	//stores the recent searches
-	const quickResults = []
 
 	const change = (event) => {
 		event.preventDefault()
@@ -32,7 +24,17 @@ const SearchBar = (props) => {
 		}
 	}
 
+	const san = (str: string) => {
+		if (str === null || str === '') {
+			return false
+		} else {
+			str = str.toString()
+			setSearch(str.replace(/(<([^>]+)>)/gi, ''))
+		}
+	}
+
 	const handleSubmit = () => {
+		san(search)
 		router.push({
 			pathname: '/search',
 			query: {
@@ -54,7 +56,7 @@ const SearchBar = (props) => {
 					placeholder="Search through millions of dissertation documents in real-time..."
 					className="border border-gray-500 py-4 px-2 text-gray-500 shadow-md rounded-md w-1/2 block"
 					onChange={(e) => change(e)}
-					value={search}
+					defaultValue={search != '' ? search : router.query.query}
 					autoComplete="off"
 				/>
 				<input
@@ -63,7 +65,7 @@ const SearchBar = (props) => {
 					placeholder="Specify the author"
 					className="border border-gray-500 py-4 px-2 text-gray-500 shadow-md rounded-md w-1/2 block"
 					onChange={(e) => change(e)}
-					value={author}
+					defaultValue={author != '' ? author : router.query.author}
 					autoComplete="off"
 				/>
 				<button

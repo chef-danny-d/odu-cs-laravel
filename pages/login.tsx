@@ -4,6 +4,7 @@ import axios from 'axios'
 import Layout from './components/Layout'
 import withoutAuth from './auth/withoutAuth'
 import { useAuth } from './providers/Auth'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 export default withoutAuth(function Login() {
 	const [email, setEmail] = useState('')
@@ -20,6 +21,9 @@ export default withoutAuth(function Login() {
 		if (e.target.name === 'password') {
 			setPassword(e.target.value)
 		}
+	}
+	function captcha(value) {
+		console.log('Captcha value:', value)
 	}
 
 	const handleSubmit = (e) => {
@@ -57,7 +61,7 @@ export default withoutAuth(function Login() {
 				</div>
 			)}
 			<form
-				className="bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full"
+				className="bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2 mx-auto"
 				onSubmit={(e) => handleSubmit(e)}
 			>
 				<div className="mb-4">
@@ -94,6 +98,12 @@ export default withoutAuth(function Login() {
 							Make sure password is more than 8 characters.
 						</p>
 					)}
+				</div>
+				<div className="flex flex-1 items-center justify-center">
+					<ReCAPTCHA
+						sitekey={`${process.env.REACT_APP_SITEKEY}`}
+						onChange={captcha}
+					/>
 				</div>
 				<div className="flex items-center justify-between">
 					<a
