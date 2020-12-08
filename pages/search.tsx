@@ -1,16 +1,15 @@
 import React from 'react'
+import withAuth from './auth/withAuth'
 import Layout from './components/Layout'
-import Nav from './components/Nav'
-import SearchBar from './components/Search'
+import SearchBar from './components/SearchBar'
 import SearchResults from './components/SearchResults'
 
-const Search = (props) => {
+const Search = withAuth((props) => {
 	return (
 		<Layout>
 			<SearchBar />
-			<SearchResults />
 		</Layout>
 	)
-}
+})
 
 export default Search

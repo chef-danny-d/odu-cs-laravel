@@ -14,7 +14,7 @@ export default withAuth(function User() {
 			email: '',
 			password: '',
 			passwordConf: '',
-			searchHistory: [],
+			savedArticles: [],
 		},
 	}
 
@@ -25,21 +25,20 @@ export default withAuth(function User() {
 	const deleteInstance = (e, key) => {
 		e.preventDefault()
 		//run query to remove nth element in array based on the key passed in
-		// let data = JSON.stringify({ key })
-		// axios
-		// 	.post(`/api/user/${token}/searchDelete`, data, {
-		// 		headers: { 'Content-Type': 'application/json' },
-		// 	})
-		// 	.then(() => {})
-		// 	.catch((err) => {
-		// 		console.error(err)
-		// 	})
+		console.log(key)
+
+		let data = JSON.stringify({ doc: key })
+		fetch(`/api/user/${token}/document`, {
+			method: 'delete',
+			headers: { 'Content-Type': 'application/json' },
+			body: data,
+		})
+		window.location.reload()
 	}
 
 	useEffect(() => {
 		getID()
 			.then((id) => {
-				console.log(id)
 				setToken(id)
 			})
 			.catch((err) => {
@@ -49,7 +48,6 @@ export default withAuth(function User() {
 			axios
 				.get(`/api/user?token=${token}`)
 				.then((response) => {
-					console.log(response)
 					setUser(response.data)
 					setLoading(false)
 				})
@@ -72,7 +70,7 @@ export default withAuth(function User() {
 								<img
 									src="https://via.placeholder.com/150"
 									alt="user avatar"
-									className="user--avatar rounded-full w-20"
+									className="user--avatar rounded-full"
 								/>
 								<div className="user--header-text">
 									<h1 className="user--header-text text-md font-bold">
@@ -85,38 +83,35 @@ export default withAuth(function User() {
 								</div>
 							</div>
 							<div className="tile--header">
-								<h1 className="tile--header-text text-lg">
-									Saved articles
+								<h1 className="tile--header-text text-3xl">
+									Saved documents
 								</h1>
 							</div>
 							<div className="tile--content">
 								{user.data.savedArticles.map(
 									(instance, key) => (
-										<div className="search--item rounded-sm flex flex-wrap flex-row justify-between px-4 py-1 text-white bg-indigo-300 my-2 hover:bg-indigo-400">
-											<Link
-												href={`/document/${instance}`}
-											>
-												<a className="">
-													<div
-														className="search--item__text flex flex-row"
-														key={key}
-													>
-														<FeatherIcon
-															icon="search"
-															className="mr-2 text-gray-300 hover:text-white"
-														/>
-														{instance}
-													</div>
-												</a>
-											</Link>
+										<div
+											className="search--item rounded-sm flex flex-wrap flex-row justify-between px-4 py-1 text-white bg-indigo-300 my-2 hover:bg-indigo-400"
+											key={key}
+										>
+											<div className="flex flex-1">
+												<DocumentTitle
+													key={key}
+													instance={instance}
+												/>
+											</div>
 											<button
 												onClick={(event: object) =>
-													deleteInstance(event, key)
+													deleteInstance(
+														event,
+														instance
+													)
 												}
+												className="search--item__icon hover:text-red-300"
 											>
-												<div className="search--item__icon hover:text-red-300">
+												<>
 													<FeatherIcon icon="trash" />
-												</div>
+												</>
 											</button>
 										</div>
 									)
@@ -132,3 +127,23 @@ export default withAuth(function User() {
 		</>
 	)
 })
+
+const DocumentTitle = ({ instance }) => {
+	const [title, setTitle] = useState('')
+
+	axios
+		.get(`/api/document/${instance}`)
+		.then((doc) => {
+			setTitle(doc.data.data.title)
+		})
+		.catch((error) => {
+			console.error(error)
+		})
+	return (
+		<>
+			<Link href={`/document/${instance}`}>
+				<a className="hover:underline">{title}</a>
+			</Link>
+		</>
+	)
+}

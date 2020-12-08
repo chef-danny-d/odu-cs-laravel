@@ -13,11 +13,16 @@ export default withoutAuth(function Register() {
 	const [password, setPassword] = useState('')
 	const [passwordConf, setPasswordConf] = useState('')
 	const [error, setError] = useState('')
+	const [captchaID, setCaptchaID] = useState('')
 
 	const { setAuthenticated } = useAuth()
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
+		if (captchaID === '') {
+			setError('Please verify you are not a robot')
+			return false
+		}
 		let data = JSON.stringify({
 			firstName,
 			lastName,
@@ -41,7 +46,8 @@ export default withoutAuth(function Register() {
 				setError(err.message)
 			})
 	}
-	function captcha(value) {
+	const captcha = (value) => {
+		setCaptchaID(value)
 		console.log('Captcha value:', value)
 	}
 	const change = (e) => {
@@ -181,8 +187,9 @@ export default withoutAuth(function Register() {
 				</div>
 				<div className="flex flex-1 items-center justify-center mb-6">
 					<ReCAPTCHA
-						sitekey={`${process.env.REACT_APP_SITEKEY}`}
+						sitekey="6LfDD-QZAAAAAIYmFRZorFHTtSZDrhd3q7HlSm52"
 						onChange={captcha}
+						name="captcha"
 					/>
 				</div>
 				<div className="flex items-center justify-around w-full">

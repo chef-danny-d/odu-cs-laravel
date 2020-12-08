@@ -80,19 +80,33 @@ export default async (req, res) => {
 		}
 	}
 	if (method === 'DELETE') {
-		const deleted = await User.deleteOne({ _id: id })
+		const user = await User.findById({ _id: id })
+		const doc = req.body.doc
 
 		//check if account can be found in db
-		if (!deleted) {
+		if (!user) {
 			return res.status(400).json({
 				success: false,
 				error: 'This user is not in our records.',
 			})
 		} else {
-			return res.status(200).json({
-				success: true,
-				data: {},
-			})
+			user.updateOne(
+				{
+					$pull: {
+						savedArticles: doc,
+					},
+				},
+				(err, result) => {
+					if (err) {
+						res.status(400).json({ error: err })
+					} else {
+						return res.status(200).json({
+							success: true,
+							data: {},
+						})
+					}
+				}
+			)
 		}
 	}
 }

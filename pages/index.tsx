@@ -1,6 +1,4 @@
 import Head from 'next/head'
-import SearchBar from './components/Search'
-import Nav from './components/Nav'
 import React from 'react'
 import Layout from './components/Layout'
 
@@ -10,12 +8,18 @@ export default function Home() {
 			<Head>
 				<title>Triple P Search</title>
 				<link rel="icon" href="/favicon.ico" />
+				<link
+					rel="stylesheet"
+					href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.0.0/themes/algolia-min.css"
+				/>
+				<link
+					rel="stylesheet"
+					href="https://raw.githubusercontent.com/algolia/examples/master/instant-search/react-instantsearch/public/style.css"
+				/>
 			</Head>
 
 			<main className="text-center text-gray-800">
-				<h1 className="text-3xl">
-					Welcome to The Thesis Search Engine
-				</h1>
+				<h1 className="text-3xl">Welcome to The ETD search engine</h1>
 				<p className="mt-5">
 					Please{' '}
 					<a className="underline font-bold" href="/login">

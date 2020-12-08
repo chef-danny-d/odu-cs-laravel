@@ -1,18 +1,17 @@
 import mongoose from 'mongoose'
 
-const connection = {}
+const connection = { isConnected: null }
 
 async function dbCon() {
-	if (connection.isConnected) {
-		return
-	}
-
 	const db = await mongoose.connect(process.env.MONGO_URI, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	})
 
 	connection.isConnected = db.connections[0].readyState
+	if (connection.isConnected) {
+		return
+	}
 	console.log(connection.isConnected == 1 ? 'Connected' : 'Error connecting')
 }
 

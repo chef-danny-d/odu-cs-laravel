@@ -64,6 +64,7 @@ const SearchResults = (props: object) => {
 						results={currentPosts}
 						query={query}
 						userID={token}
+						allResults={results.data.length}
 					/>
 					<Pagination
 						postPerPage={postsPerPage}
@@ -99,7 +100,7 @@ const subjectMapper = (array) => {
 				<a>
 					<span
 						key={index}
-						className="bg-teal-400 rounded px-2 py-1 mx-1 my-3 text-sm"
+						className="bg-teal-400 rounded px-2 py-1 mx-1 my-1 text-sm inline-block"
 					>
 						{item}
 					</span>
@@ -112,7 +113,7 @@ const subjectMapper = (array) => {
 }
 
 const Results = (props: object) => {
-	const { results, query, userID } = props
+	const { results, query, userID, allResults } = props
 	const [user, setUser] = useState([])
 
 	const saveArticle = (articleID: string, token: string) => {
@@ -128,7 +129,7 @@ const Results = (props: object) => {
 	return (
 		<>
 			{query ? (
-				<p className="text-gray-500">{results.length} results found</p>
+				<p className="text-gray-500">{allResults} results found</p>
 			) : null}
 
 			{results.map((doc) => (
@@ -153,7 +154,10 @@ const Results = (props: object) => {
 						<Link
 							href={{
 								pathname: '/search',
-								query: { author: doc.contributor_author },
+								query: {
+									query: '',
+									author: doc.contributor_author,
+								},
 							}}
 						>
 							<a>
@@ -163,9 +167,12 @@ const Results = (props: object) => {
 							</a>
 						</Link>
 						<p className="text-gray-800">
-							{doc.description_abstract
-								? doc.description_abstract.substr(0, 150)
-								: null}
+							{parse(
+								highlight(
+									doc.description_abstract.substr(0, 200),
+									query
+								)
+							)}
 							...
 						</p>
 						<p className="text-gray-600 underline">{doc.author}</p>
