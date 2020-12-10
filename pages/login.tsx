@@ -47,7 +47,7 @@ export default withoutAuth(function Login() {
 			})
 			.then(() => {
 				setAuthenticated(true)
-				return router.push(`/search`)
+				return router.push(`/`)
 			})
 			.catch((err) => {
 				console.error('error: ', err)

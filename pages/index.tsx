@@ -1,8 +1,18 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Autocomplete from './components/Autocomplete'
 import Layout from './components/Layout'
+import { getID } from './helper'
+import { useIsAuthenticated } from './providers/Auth'
 
 export default function Home() {
+	const isAuthenticated = useIsAuthenticated()
+	const [token, setToken] = useState('')
+	useEffect(() => {
+		getID().then((id) => {
+			setToken(id)
+		})
+	}, [])
 	return (
 		<Layout>
 			<Head>
@@ -20,20 +30,24 @@ export default function Home() {
 
 			<main className="text-center text-gray-800">
 				<h1 className="text-3xl">Welcome to The ETD search engine</h1>
-				<p className="mt-5">
-					Please{' '}
-					<a className="underline font-bold" href="/login">
-						log in
-					</a>{' '}
-					or{' '}
-					<a className="underline font-bold" href="/register">
-						register
-					</a>
-					, in order to search through our database of documents.
-				</p>
+				{!isAuthenticated ? (
+					<p className="mt-5">
+						Please{' '}
+						<a className="underline font-bold" href="/login">
+							log in
+						</a>{' '}
+						or{' '}
+						<a className="underline font-bold" href="/register">
+							register
+						</a>
+						, in order to search through our database of documents.
+					</p>
+				) : (
+					<Autocomplete />
+				)}
 			</main>
 
-			<footer className="mx-auto max-w-lg text-center absolute bottom-0">
+			<footer className="w-full text-center absolute bottom-0">
 				<a
 					href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
 					target="_blank"

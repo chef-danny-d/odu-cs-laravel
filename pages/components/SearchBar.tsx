@@ -30,29 +30,17 @@ const SearchBar = (props) => {
 	const [token, setToken] = useState('')
 
 	const router = useRouter()
-
-	const san = (str: string) => {
-		if (str === null || str === '') {
-			return false
-		} else {
-			str = str.toString()
-			setSearch(str.replace(/(<([^>]+)>)/gi, ''))
-		}
-	}
+	console.log(router.query.query)
 
 	const handleSubmit = () => {
-		san(search)
-		if (search === '' && author === '') {
-			return
-		} else {
-			router.push({
-				pathname: '/search',
-				query: {
-					query: search,
-					author,
-				},
-			})
-		}
+		console.log(search)
+		router.push({
+			pathname: '/search',
+			query: {
+				query: search,
+				author,
+			},
+		})
 	}
 
 	const saveArticle = (articleID: string, token: string) => {
@@ -66,6 +54,9 @@ const SearchBar = (props) => {
 	}
 
 	useEffect(() => {
+		if (router.query.query !== '') {
+			setSearch(router.query.query)
+		}
 		getID().then((id) => {
 			setToken(id)
 		})
@@ -153,7 +144,11 @@ const SearchBar = (props) => {
 
 	return (
 		<div className="w-full px-3 pt-2 flex flex-row">
-			<InstantSearch searchClient={searchClient} indexName="cs418">
+			<InstantSearch
+				searchClient={searchClient}
+				indexName="cs418"
+				searchState={{ query: search }}
+			>
 				<div className="w-1/5 px-3 py-2">
 					<h3 className="text-md">Department</h3>
 					<RefinementList
