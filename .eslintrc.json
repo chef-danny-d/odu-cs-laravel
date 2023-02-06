@@ -1,0 +1,23 @@
+{
+	"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["@typescript-eslint"],
+	"root": true,
+	"rules": {
+		"@typescript-eslint/no-explicit-any": "warn",
+		"@typescript-eslint/no-unused-vars": "warn",
+		"prefer-const": "warn",
+		"no-mixed-spaces-and-tabs": ["warn", "smart-tabs"]
+	},
+	"env": {
+		"es2022": true
+	},
+	"overrides": [
+		{
+			"files": ["**/*.js"],
+			"env": {
+				"node": true
+			}
+		}
+	]
+}
