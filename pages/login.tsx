@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import Layout from './components/Layout'
 import withoutAuth from './auth/withoutAuth'
-import { useAuth } from './providers/Auth'
+import { useAuth } from '../providers/Auth'
 import ReCAPTCHA from 'react-google-recaptcha'
 
 export default withoutAuth(function Login() {
@@ -107,7 +107,7 @@ export default withoutAuth(function Login() {
 				</div>
 				<div className="flex flex-1 items-center justify-center">
 					<ReCAPTCHA
-						sitekey="6LfDD-QZAAAAAIYmFRZorFHTtSZDrhd3q7HlSm52"
+						sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}
 						onChange={captcha}
 					/>
 				</div>

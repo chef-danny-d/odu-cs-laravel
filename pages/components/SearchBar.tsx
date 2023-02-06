@@ -17,7 +17,7 @@ import CustomSearchBox from './CustomSearchBox'
 import CustomPagination from './CustomPagination'
 import FeatherIcon from 'feather-icons-react'
 import axios from 'axios'
-import { getID } from '../helper'
+import { getID } from '../../helper'
 
 const SearchBar = (props) => {
 	//search holds the search query entered
@@ -55,7 +55,7 @@ const SearchBar = (props) => {
 
 	useEffect(() => {
 		if (router.query.query !== '') {
-			setSearch(router.query.query[0])
+			setSearch(router.query.query as string)
 		}
 		getID().then((id) => {
 			setToken(id)

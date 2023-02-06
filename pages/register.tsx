@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import Layout from './components/Layout'
 import withoutAuth from './auth/withoutAuth'
-import { useAuth } from './providers/Auth'
+import { useAuth } from '../providers/Auth'
 import ReCAPTCHA from 'react-google-recaptcha'
 
 export default withoutAuth(function Register() {

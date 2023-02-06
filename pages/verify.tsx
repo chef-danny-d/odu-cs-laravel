@@ -5,7 +5,11 @@ import { useRouter, withRouter } from 'next/router'
 function Verify(props) {
 	const { token } = props.router.query
 
-	const [user, setUser] = useState([])
+	const [user, setUser] = useState<{
+		data: {
+			firstName: string
+		}
+	}>(null)
 	const [loading, setLoading] = useState(true)
 
 	const router = useRouter()

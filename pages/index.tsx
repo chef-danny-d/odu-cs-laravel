@@ -2,8 +2,8 @@ import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import Autocomplete from './components/Autocomplete'
 import Layout from './components/Layout'
-import { getID } from './helper'
-import { useIsAuthenticated } from './providers/Auth'
+import { getID } from '../helper'
+import { useIsAuthenticated } from '../providers/Auth'
 
 export default function Home() {
 	const isAuthenticated = useIsAuthenticated()

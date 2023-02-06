@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { NextPage } from 'next'
-import { CookiesPageContext } from '../@types'
+import { CookiesPageContext } from '../../@types'
 
 function isBrowser(): boolean {
 	return typeof window !== 'undefined'

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useAuth } from './providers/Auth'
+import { useAuth } from '../providers/Auth'
 import withAuth from './auth/withAuth'
 
 export default withAuth(function Logout() {

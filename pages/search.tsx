@@ -2,7 +2,6 @@ import React from 'react'
 import withAuth from './auth/withAuth'
 import Layout from './components/Layout'
 import SearchBar from './components/SearchBar'
-import SearchResults from './components/SearchResults'
 
 const Search = withAuth((props) => {
 	return (

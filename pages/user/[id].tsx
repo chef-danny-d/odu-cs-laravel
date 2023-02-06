@@ -3,7 +3,7 @@ import withAuth from '../auth/withAuth'
 import Layout from '../components/Layout'
 import Link from 'next/link'
 import axios from 'axios'
-import { getID } from '../helper'
+import { getID } from '../../helper'
 import FeatherIcon from 'feather-icons-react'
 
 export default withAuth(function User() {

@@ -31,8 +31,8 @@ export default async (req, res) => {
 						port: 587,
 						secure: false, // true for 465, false for other ports
 						auth: {
-							user: 'abdullah.murphy@ethereal.email', // generated ethereal user
-							pass: '9qB5rHCapNReY7awGz', // generated ethereal password
+							user: 'obie5@ethereal.email', // generated ethereal user
+							pass: 'vPa3kXHsrh41j3JJgV', // generated ethereal password
 						},
 					})
 

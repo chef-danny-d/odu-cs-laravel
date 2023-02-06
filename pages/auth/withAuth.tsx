@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { useIsAuthenticated } from '../providers/Auth'
+import { useIsAuthenticated } from '../../providers/Auth'
 import withConditionalRedirect from './withConditionalRedirect'
 
 /**

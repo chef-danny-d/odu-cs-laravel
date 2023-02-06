@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { getID } from '../helper'
-import { useIsAuthenticated } from '../providers/Auth'
+import { getID } from '../../helper'
+import { useIsAuthenticated } from '../../providers/Auth'
 import Link from 'next/link'
 
 const Nav = () => {
