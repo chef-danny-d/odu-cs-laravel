@@ -30,7 +30,7 @@ export default async (req, res) => {
 		})
 	}
 	if (req.method == 'GET') {
-		let cook = cookies.get('session')
+		const cook = cookies.get('session')
 		if (cook) {
 			res.json({
 				token: cook,

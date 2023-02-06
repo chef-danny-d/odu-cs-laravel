@@ -23,7 +23,7 @@ export default withoutAuth(function Register() {
 			setError('Please verify you are not a robot')
 			return false
 		}
-		let data = JSON.stringify({
+		const data = JSON.stringify({
 			firstName,
 			lastName,
 			email,

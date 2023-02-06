@@ -11,7 +11,7 @@ function Verify(props) {
 	const router = useRouter()
 
 	useEffect(() => {
-		let data = JSON.stringify({
+		const data = JSON.stringify({
 			token,
 		})
 		axios

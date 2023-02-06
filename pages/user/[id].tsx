@@ -27,7 +27,7 @@ export default withAuth(function User() {
 		//run query to remove nth element in array based on the key passed in
 		console.log(key)
 
-		let data = JSON.stringify({ doc: key })
+		const data = JSON.stringify({ doc: key })
 		fetch(`/api/user/${token}/document`, {
 			method: 'delete',
 			headers: { 'Content-Type': 'application/json' },

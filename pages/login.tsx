@@ -34,7 +34,7 @@ export default withoutAuth(function Login() {
 			setError('Please verify you are not a robot')
 			return false
 		}
-		let data = JSON.stringify({
+		const data = JSON.stringify({
 			email,
 			password,
 		})

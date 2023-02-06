@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-let Docs = new mongoose.Schema({
+const Docs = new mongoose.Schema({
 	title: {
 		type: String,
 		required: true,

@@ -26,7 +26,7 @@ export default async (req, res) => {
 						passwordConf: hash,
 						active: false,
 					})
-					let transporter = nodemailer.createTransport({
+					const transporter = nodemailer.createTransport({
 						host: 'smtp.ethereal.email',
 						port: 587,
 						secure: false, // true for 465, false for other ports
@@ -38,7 +38,7 @@ export default async (req, res) => {
 
 					newUser.save().then(async (user) => {
 						const url = `http:localhost:3000/verify?token=${user._id}`
-						let mail = await transporter.sendMail({
+						const mail = await transporter.sendMail({
 							from: '"Daniel Papp 👻" <admin@dannydchef.codes>', // sender address
 							to: user.email, // list of receivers
 							subject: `Verify Triple P Search account, ${user.firstName}`, // Subject line

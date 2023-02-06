@@ -6,7 +6,7 @@ function isBrowser(): boolean {
 	return typeof window !== 'undefined'
 }
 
-export default function withConditionalRedirect<CP = {}, IP = CP>({
+export default function withConditionalRedirect<CP, IP = CP>({
 	WrappedComponent,
 	clientCondition,
 	serverCondition,

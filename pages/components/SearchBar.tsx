@@ -55,7 +55,7 @@ const SearchBar = (props) => {
 
 	useEffect(() => {
 		if (router.query.query !== '') {
-			setSearch(router.query.query)
+			setSearch(router.query.query[0])
 		}
 		getID().then((id) => {
 			setToken(id)

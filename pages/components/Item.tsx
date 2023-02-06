@@ -5,7 +5,12 @@ import axios from 'axios'
 const Item = (props) => {
 	const [loading, setLoading] = useState(true)
 	const [document, setDocument] = useState({
-		data: { title: '', identifier_uri: '', description_abstract: '' },
+		data: {
+			title: '',
+			identifier_uri: '',
+			description_abstract: '',
+			relation_haspart: '',
+		},
 	})
 
 	const id = props.router.query.id

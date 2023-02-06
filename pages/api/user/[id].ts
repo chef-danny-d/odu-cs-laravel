@@ -32,15 +32,14 @@ export default async (req, res) => {
 	else if (method === 'PUT') {
 		const user = await User.findById(id)
 		if (!user) {
+			return res.status(400).json({
+				success: false,
+				error: 'This user is not in our records.',
+			})
 		} else {
 			//destructuring body for shorthand
-			const {
-				firstName,
-				lastName,
-				email,
-				password,
-				passwordConf,
-			} = req.body
+			const { firstName, lastName, email, password, passwordConf } =
+				req.body
 			//create a copy object
 			const updatedUser = req.body
 			//check body password for match

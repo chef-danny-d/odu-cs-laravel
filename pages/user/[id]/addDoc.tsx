@@ -12,7 +12,7 @@ const addDoc = (props) => {
 	const userID = props.router.query.id
 
 	const handleSubmit = () => {
-		let data = JSON.stringify({
+		const data = JSON.stringify({
 			title,
 			description,
 			release,
@@ -41,8 +41,6 @@ const addDoc = (props) => {
 			setType(e.target.value)
 		}
 	}
-
-	useEffect(() => {})
 
 	return (
 		<Layout>
